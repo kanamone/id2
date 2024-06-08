@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // eslint-disable-next-line node/shebang
 import { Converter } from '.'
+import { readFileSync } from 'node:fs'
 
 function main () {
   const [,, format, ...mappings] = process.argv
@@ -9,14 +10,18 @@ function main () {
     [key: string]: string
   }
 
+  if (!format) {
+    return error('no format provided')
+  }
+
   if (mappings.length < 1) {
     return error('no mapping provided')
   }
 
-  const input = mappings.pop()
+  let input = mappings.length > 1 ? mappings.pop() : undefined
 
   if (!input) {
-    return error('no input')
+    input = readFileSync(0, 'utf-8').trim()
   }
 
   if (!/^\d+$/.test(input)) {
