@@ -10,6 +10,11 @@
     "prepublishOnly": "npm run build",
     "release": "changeset publish"
   },
+  "private": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "bin": "lib/cli.js",
   "files": [
     "lib"
